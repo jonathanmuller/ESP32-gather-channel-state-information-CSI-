@@ -17,3 +17,5 @@ STA sends the "steering matrix" (which is the "angle" the "blank" frame got duri
 AP sends following frames with the complementary angle so the STA receive the frames as best as possible
 
 If you have more informations, please let me know so it is (finally ..) possible to continously receive CSI frames with the ESP32 instead of being forced to use the IWL5300
+
+Do not hesitate to contact me (email on my bio/issues) if you have question/suggestions/informations
