@@ -19,3 +19,5 @@ AP sends following frames with the complementary angle so the STA receive the fr
 If you have more informations, please let me know so it is (finally ..) possible to continously receive CSI frames with the ESP32 instead of being forced to use the IWL5300
 
 Do not hesitate to contact me (email on my bio/issues) if you have question/suggestions/informations
+
+NB : I have a modified/hacked WiFi library which allow to send any frame but I will NOT upload it. Nevertheless I can explain you approximately how to get the same result
