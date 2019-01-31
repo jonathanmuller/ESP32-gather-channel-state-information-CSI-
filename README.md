@@ -7,6 +7,8 @@ The goal of this project is :
     This works and is implemented on Espressif SDK (see example)
 - To localize the ESP32 with those frames
     TODO
+- To receive 802.11n frames and transfer them to wireshark
+    This is partially done (folder read frames)
     
     
 The current understanding of CSI frames mecanism is :

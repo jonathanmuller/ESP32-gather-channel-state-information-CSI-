@@ -1,0 +1,5 @@
+0000   74 fc a6 bd 3b 04 2a 56 47 5e 29 f0 76 68 bb 82 69 b6 97 90
+
+
+
+/home/jonathan/Desktop/frame_type/control_wrapper.txt

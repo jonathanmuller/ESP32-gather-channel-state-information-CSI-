@@ -27,6 +27,8 @@
 #include "esp_log.h"
 #include "esp_event_loop.h"
 #include "nvs_flash.h"
+#include <string.h>
+#include <stdio.h>
 
 #include "structures.h"
 
@@ -109,10 +111,10 @@ void receive_csi_cb(void *ctx, wifi_csi_info_t *data) {
 
 	char senddMacChr[LEN_MAC_ADDR] = {0}; // Sender
 	sprintf(senddMacChr, "%02X:%02X:%02X:%02X:%02X:%02X", received.mac[0], received.mac[1], received.mac[2], received.mac[3], received.mac[4], received.mac[5]);
-	/*
+	
 	printf("CSI from adress %s\n", senddMacChr); 
 
-	
+	/*
 	printf("Following packet :\n");
 	printf("rate %d\n", received.rx_ctrl.rate);
 	printf("sig_mode %d -> ",received.rx_ctrl.sig_mode);
@@ -150,8 +152,14 @@ void promi_cb(void *buff, wifi_promiscuous_pkt_type_t type) {
 	const wifi_ieee80211_mac_hdr_t *hdr = &ipkt->hdr;
 	uint8_t* my_ptr=ipkt;
 	
+	char senddMacChr[LEN_MAC_ADDR] = {0}; // Sender
+	char recvdMacChr[LEN_MAC_ADDR] = {0}; // Receiver
+	sprintf(recvdMacChr, "%02X:%02X:%02X:%02X:%02X:%02X", hdr->addr1[0], hdr->addr1[1], hdr->addr1[2], hdr->addr1[3], hdr->addr1[4], hdr->addr1[5]);
+	sprintf(senddMacChr, "%02X:%02X:%02X:%02X:%02X:%02X", hdr->addr2[0], hdr->addr2[1], hdr->addr2[2], hdr->addr2[3], hdr->addr2[4], hdr->addr2[5]);
+
+
+	
 	if (ppkt->rx_ctrl.sig_mode>0){
-		
 		printf("0000 ");
 		for (int i=0;i<ppkt->rx_ctrl.sig_len;i++){
 			printf("%02x ", my_ptr[i]);
@@ -196,7 +204,7 @@ void app_main()
 	esp_wifi_set_promiscuous_ctrl_filter(&filer_promi_ctrl);
 	
 	ESP_ERROR_CHECK(esp_wifi_set_promiscuous(true));
-	ESP_ERROR_CHECK(esp_wifi_set_csi(0));
+	ESP_ERROR_CHECK(esp_wifi_set_csi(1));
 	esp_wifi_set_promiscuous_rx_cb(promi_cb);
 	wifi_csi_config_t configuration_csi; // CSI = Channel State Information
 	configuration_csi.lltf_en = 1;
@@ -219,18 +227,34 @@ void app_main()
 	ESP_ERROR_CHECK(esp_wifi_set_protocol(WIFI_IF_AP, WIFI_PROTOCOL_11B| WIFI_PROTOCOL_11G|WIFI_PROTOCOL_11N));
 	
 	while(1){
-		for(int bandwith=0; bandwith<=2;bandwith++){
-			/*
-			for (int chan=1;chan<=11;chan++){
-				//printf("Chan %d\n", chan);
-				ret=esp_wifi_set_channel(chan, bandwith);
-				ESP_ERROR_CHECK(ret);
-				sleep(5);
-			}*/
+		for(int bandwith=0; bandwith<2;bandwith++){ // HT40- is not avaible for all channels
+			int ht_chan=0;
+			switch (bandwith){
+				case 0:
+					ht_chan=WIFI_SECOND_CHAN_NONE;
+					break;
+				case 1:
+					ht_chan=WIFI_SECOND_CHAN_ABOVE;
+					break;
+				case 2:
+					ht_chan=WIFI_SECOND_CHAN_BELOW;
+					break;
+				default:
+					ht_chan=WIFI_SECOND_CHAN_NONE;
+			}
 			
-			esp_wifi_set_channel(6, bandwith);
+			for (int chan=1;chan<=10;chan++){
+				//printf("Chan %d bw %d\n", chan, bandwith);
+				ret=esp_wifi_set_channel(chan, ht_chan);
+				ESP_ERROR_CHECK(ret);
+				usleep(1*1000*1000);
+			}
+			
+			/*
+			esp_wifi_set_channel(6, ht_chan);
 			ESP_ERROR_CHECK(ret);
 			sleep(5);
+			*/
 		}
 	}
 	printf("fin\n");
