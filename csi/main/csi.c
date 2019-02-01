@@ -107,8 +107,7 @@ void receive_csi_cb(void *ctx, wifi_csi_info_t *data) {
  */ 
 
 	wifi_csi_info_t received = data[0];
-
-
+	
 	char senddMacChr[LEN_MAC_ADDR] = {0}; // Sender
 	sprintf(senddMacChr, "%02X:%02X:%02X:%02X:%02X:%02X", received.mac[0], received.mac[1], received.mac[2], received.mac[3], received.mac[4], received.mac[5]);
 	
@@ -191,9 +190,9 @@ void app_main()
 	
 	wifi_promiscuous_filter_t filer_promi;
 	wifi_promiscuous_filter_t filer_promi_ctrl;
-
+	
 	uint32_t filter_promi_field=WIFI_PROMIS_FILTER_MASK_ALL;
-	uint32_t filter_promi_ctrl_field=WIFI_PROMIS_FILTER_MASK_ALL;
+	uint32_t filter_promi_ctrl_field=(0xFFFFF000); // By setting it to 0xFFFFFFFF we can catch CSI ?! (but error)
 	uint32_t filter_event=WIFI_PROMIS_CTRL_FILTER_MASK_ALL;
    
 	filer_promi.filter_mask = filter_promi_field;
@@ -204,13 +203,16 @@ void app_main()
 	esp_wifi_set_promiscuous_ctrl_filter(&filer_promi_ctrl);
 	
 	ESP_ERROR_CHECK(esp_wifi_set_promiscuous(true));
-	ESP_ERROR_CHECK(esp_wifi_set_csi(1));
 	esp_wifi_set_promiscuous_rx_cb(promi_cb);
+	
+	ESP_ERROR_CHECK(esp_wifi_set_csi(1));
+
 	wifi_csi_config_t configuration_csi; // CSI = Channel State Information
 	configuration_csi.lltf_en = 1;
 	configuration_csi.htltf_en = 1;
 	configuration_csi.stbc_htltf2_en = 1;
-	configuration_csi.channel_filter_en = 0;
+	configuration_csi.ltf_merge_en = 1;
+	configuration_csi.channel_filter_en = 1;
 	configuration_csi.manu_scale = 0; // Automatic scalling
 	//configuration_csi.shift=15; // 0->15
 	
@@ -225,6 +227,10 @@ void app_main()
 		ap_config.ap.ssid[i]=(uint8_t)esp_random(); // Random name
 	ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_AP, &ap_config)); 
 	ESP_ERROR_CHECK(esp_wifi_set_protocol(WIFI_IF_AP, WIFI_PROTOCOL_11B| WIFI_PROTOCOL_11G|WIFI_PROTOCOL_11N));
+	
+	esp_log_level_set("TEST", ESP_LOG_VERBOSE);
+	printf("Watch for 'filter_promi_ctrl_field', we can possibly get RAW CSI frames if we disable the error!\n");
+	sleep(1);
 	
 	while(1){
 		for(int bandwith=0; bandwith<2;bandwith++){ // HT40- is not avaible for all channels
@@ -242,19 +248,19 @@ void app_main()
 				default:
 					ht_chan=WIFI_SECOND_CHAN_NONE;
 			}
-			
+			/*
 			for (int chan=1;chan<=10;chan++){
 				//printf("Chan %d bw %d\n", chan, bandwith);
 				ret=esp_wifi_set_channel(chan, ht_chan);
 				ESP_ERROR_CHECK(ret);
 				usleep(1*1000*1000);
 			}
+			*/
 			
-			/*
 			esp_wifi_set_channel(6, ht_chan);
 			ESP_ERROR_CHECK(ret);
 			sleep(5);
-			*/
+			
 		}
 	}
 	printf("fin\n");
