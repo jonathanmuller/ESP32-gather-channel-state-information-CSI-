@@ -15,6 +15,7 @@ The goal of this project is :
 How to use :
 
 1) Install Espressif SDK
+    
     -Follow Espressif installation totorial (Windows, Mac and Linux avaible) : https://docs.espressif.com/projects/esp-idf/en/latest/get-started/index.html
 
 2) Get a copy of this project
