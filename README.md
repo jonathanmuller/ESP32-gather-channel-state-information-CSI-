@@ -1,6 +1,6 @@
 # Gather CSI (Channel State Information) frames with the use of an ESP32 WiFi chip
 
-[! This project is under active developement, do not hesitate to contact me (email on my bio/issues) if you have question/suggestions/informations !]
+!!! This project is under active developement, do not hesitate to contact me (email on my bio/issues) if you have question/suggestions/informations !!!
 
 
 The goal of this project is :
