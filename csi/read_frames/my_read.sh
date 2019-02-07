@@ -1,11 +1,17 @@
 #!/bin/bash
-echo "Run this script with ./script.sh or face the illegal option sanction"
+echo "Run this script with ./script.sh or face the 'illegal option' sanction"
 INTERFACE="/dev/ttyUSB3"
 FILENAME="output_of_minicom.txt"
-echo "Launch :" 
-echo "rm "$FILENAME" ;minicom -D "$INTERFACE" -C "$FILENAME
+echo "#######################################################################################################################"
+echo "#######################################################################################################################"
+echo "#######################################################################################################################"
+echo "    Execute this command in an other terminal, in the same folder as this script :" 
+echo "    rm "$FILENAME" ;minicom -D "$INTERFACE" -C "$FILENAME
+echo "#######################################################################################################################"
+echo "#######################################################################################################################"
+echo "#######################################################################################################################"
 cp init.pcap tot.pcap
-
+rm $FILENAME
 while true;
 do
 	cat $FILENAME > /dev/null && break
@@ -19,7 +25,7 @@ do
 	line=$(tail -n 1 $FILENAME)
 	line_start=$(echo $line | cut -c1-5)
 	if [ "$line_start" = "0000 " ]; then
-		echo "Ok"
+		status="OK"
 	else
 		continue
 	fi
