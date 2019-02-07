@@ -14,25 +14,38 @@ The goal of this project is :
  
 How to use :
 
+
 1) Install Espressif SDK
     
-    -Follow Espressif installation totorial (Windows, Mac and Linux avaible) : https://docs.espressif.com/projects/esp-idf/en/latest/get-started/index.html
+    Follow Espressif installation totorial (Windows, Mac and Linux avaible) : https://docs.espressif.com/projects/esp-idf/en/latest/get-started/index.html
+
 
 2) Get a copy of this project
-    -git clone https://github.com/jonathanmuller/ESP32-gather-channel-state-information-CSI-.git
     
+    git clone https://github.com/jonathanmuller/ESP32-gather-channel-state-information-CSI-.git
+    
+
 3) Source espressif variables
-    -export PATH="$HOME/esp/xtensa-esp32-elf/bin:$PATH" if you have default conf.
+    
+    export PATH="$HOME/esp/xtensa-esp32-elf/bin:$PATH" if you have default conf.
    
+
 4) Adapt the project to your conf
-    -execute "make menuconfig" in the repo, and select your interface in Serial Flasher Config->Default serial port
+   
+   execute "make menuconfig" in the repo, and select your interface in Serial Flasher Config->Default serial port
+
 
 5) Build and flash the project
-    -make flash monitor (you should now see the raw dump of the frames in hexa)
     
+    make flash monitor (you should now see the raw dump of the frames in hexa)
+    
+
 6) Execute script to get frames (csi/read_frames)
-    -./my_read.sh
-    -(in an other terminal and in the script folder execute) rm output_of_minicom.txt ;minicom -D /dev/ttyUSB3 -C output_of_minicom.txt
+    
+    ./my_read.sh
+    
+    (in an other terminal and in the script folder execute) rm output_of_minicom.txt ;minicom -D /dev/ttyUSB3 -C output_of_minicom.txt
+    
     
 The frames are stored in "tot.pcap"
 CSI frames are stored in "output_of_minicom.txt" (they will be stored in a more friendly format soon)
