@@ -54,4 +54,4 @@ do
 	fi
 	last_line=$line
 done
-echo "End of script"
+echo "Script ended because a frame was not complete"

@@ -112,7 +112,7 @@ void receive_csi_cb(void *ctx, wifi_csi_info_t *data) {
 	char senddMacChr[LEN_MAC_ADDR] = {0}; // Sender
 	sprintf(senddMacChr, "%02X:%02X:%02X:%02X:%02X:%02X", received.mac[0], received.mac[1], received.mac[2], received.mac[3], received.mac[4], received.mac[5]);
 	
-	//printf("CSI from adress %s\n", senddMacChr); 
+	printf("CSI from adress %s\n", senddMacChr); 
 
 	/*
 	printf("Following packet :\n");
