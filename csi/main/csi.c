@@ -74,6 +74,7 @@
 #endif /*CONFIG_FAST_SCAN_THRESHOLD*/
 
 static const char *TAG = "scan";
+static bool can_print=1;
 
 static esp_err_t event_handler(void *ctx, system_event_t *event)
 {
@@ -111,7 +112,7 @@ void receive_csi_cb(void *ctx, wifi_csi_info_t *data) {
 	char senddMacChr[LEN_MAC_ADDR] = {0}; // Sender
 	sprintf(senddMacChr, "%02X:%02X:%02X:%02X:%02X:%02X", received.mac[0], received.mac[1], received.mac[2], received.mac[3], received.mac[4], received.mac[5]);
 	
-	printf("CSI from adress %s\n", senddMacChr); 
+	//printf("CSI from adress %s\n", senddMacChr); 
 
 	/*
 	printf("Following packet :\n");
@@ -146,25 +147,29 @@ void receive_csi_cb(void *ctx, wifi_csi_info_t *data) {
 }
 
 void promi_cb(void *buff, wifi_promiscuous_pkt_type_t type) {
-	const wifi_promiscuous_pkt_t *ppkt = (wifi_promiscuous_pkt_t *)buff;
-	const wifi_ieee80211_packet_t *ipkt = (wifi_ieee80211_packet_t *)ppkt->payload;
-	const wifi_ieee80211_mac_hdr_t *hdr = &ipkt->hdr;
-	uint8_t* my_ptr=ipkt;
-	
-	char senddMacChr[LEN_MAC_ADDR] = {0}; // Sender
-	char recvdMacChr[LEN_MAC_ADDR] = {0}; // Receiver
-	sprintf(recvdMacChr, "%02X:%02X:%02X:%02X:%02X:%02X", hdr->addr1[0], hdr->addr1[1], hdr->addr1[2], hdr->addr1[3], hdr->addr1[4], hdr->addr1[5]);
-	sprintf(senddMacChr, "%02X:%02X:%02X:%02X:%02X:%02X", hdr->addr2[0], hdr->addr2[1], hdr->addr2[2], hdr->addr2[3], hdr->addr2[4], hdr->addr2[5]);
+	if (can_print){
+		can_print=0;
+		const wifi_promiscuous_pkt_t *ppkt = (wifi_promiscuous_pkt_t *)buff;
+		const wifi_ieee80211_packet_t *ipkt = (wifi_ieee80211_packet_t *)ppkt->payload;
+		const wifi_ieee80211_mac_hdr_t *hdr = &ipkt->hdr;
+		uint8_t* my_ptr=ipkt;
+		
+		char senddMacChr[LEN_MAC_ADDR] = {0}; // Sender
+		char recvdMacChr[LEN_MAC_ADDR] = {0}; // Receiver
+		sprintf(recvdMacChr, "%02X:%02X:%02X:%02X:%02X:%02X", hdr->addr1[0], hdr->addr1[1], hdr->addr1[2], hdr->addr1[3], hdr->addr1[4], hdr->addr1[5]);
+		sprintf(senddMacChr, "%02X:%02X:%02X:%02X:%02X:%02X", hdr->addr2[0], hdr->addr2[1], hdr->addr2[2], hdr->addr2[3], hdr->addr2[4], hdr->addr2[5]);
 
 
-	
-	if (ppkt->rx_ctrl.sig_mode>0){
-		printf("0000 ");
-		for (int i=0;i<ppkt->rx_ctrl.sig_len;i++){
-			printf("%02x ", my_ptr[i]);
+		
+		if (ppkt->rx_ctrl.sig_mode>0){
+			printf("0000 ");
+			for (int i=0;i<ppkt->rx_ctrl.sig_len;i++){
+				printf("%02x ", my_ptr[i]);
+			}
+			printf("\n\n");
 		}
-		printf("\n\n");
 	}
+	can_print=1;
 	
 }
 

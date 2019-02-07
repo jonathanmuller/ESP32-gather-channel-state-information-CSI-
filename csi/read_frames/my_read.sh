@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Run this script with ./script.sh or face the illegal option sanction"
-INTERFACE="/dev/ttyUSB2"
+INTERFACE="/dev/ttyUSB3"
 FILENAME="output_of_minicom.txt"
 echo "Launch :" 
 echo "rm "$FILENAME" ;minicom -D "$INTERFACE" -C "$FILENAME
@@ -15,8 +15,14 @@ i=0
 last_line="@@@"
 while true;
 do
+	sleep 0.1
 	line=$(tail -n 1 $FILENAME)
-	#echo $line
+	line_start=$(echo $line | cut -c1-5)
+	if [ "$line_start" = "0000 " ]; then
+		echo "Ok"
+	else
+		continue
+	fi
 	
 	if [ "$last_line" = "$line" ]; then
 		i=$i
@@ -25,14 +31,21 @@ do
 		echo "New packet "$i
 		i=$((i+1))
 		echo $line > tmp.txt
-		text2pcap tmp.txt tmp.pcap -l 127
-		mergecap tmp.pcap tot.pcap -w tot.pcap -F pcap
-		echo "wireshark -k -i <(tail -c+0 -F tot.pcap)"
-		echo "tcpreplay from pcap file"
-		tcpreplay -i wlan0mon tmp.pcap
-		sleep 1
-		
+		text2pcap tmp.txt tmp.pcap -l 105
+		res=$(mergecap tmp.pcap tot.pcap -w tot_temp.pcap -F  pcap 2>&1 >/dev/null)
+		echo "The response is" $res
+		my_len=$(echo $res | wc -c)
+		echo "With len " $my_len 
+		#echo "wireshark -k -i <(tail -c+0 -F tot.pcap)"
+		#echo "tcpreplay from pcap file"
+		#tcpreplay -i wlan0mon tmp.pcap
+		if (($my_len >> 5)); then
+			break
+		else
+			mv tot_temp.pcap tot.pcap 
+		fi
 		
 	fi
 	last_line=$line
 done
+echo "End of script"
