@@ -5,18 +5,23 @@ This project allows to extract WiFi CSI (Channel State Information) frames from 
 ### A priori
 This project is under active developement, do not hesitate to contact me (email on my bio/issues) if you have question, suggestions, informations or spotted errors
 
+
 ### Actual progress
 The goal of this project is :
-- To gather and regroup all information about CSI frames and ESP32 
-   * Partially done : Need to validate the informations
 - To send CSI request frames 
    * Partially done : Able to send any kind of frame, but don't know what CSI request look like
+   * You can help by finding the structure of a CSI request frame (see in folder "request_csi" for more details)
 - To receive CSI frames 
    * Done : CSI frames are catched and loged (in an unfriendly format for now)
+   * You can help by understanding why some frames are dropped by filter_promi_ctrl_field (see source code)
 - To localize the ESP32 with those frames 
    * To do : Need more progress
 - To receive 802.11n frames and transfer them to wireshark 
    * Done : 802.11n frames are catched, logged, and copnverted to pcap (wireshark friendly)
+   * You can help understand the structure of CSI frames gathered (see in folder "read_frames" for details)
+- To gather and regroup all information about CSI frames and ESP32 
+   * Partially done : Need to validate the informations
+   * You can help by verifying the informations
  
 ### How to use 
 
