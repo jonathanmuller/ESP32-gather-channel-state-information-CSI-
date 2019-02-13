@@ -7,16 +7,16 @@ This project is under active developement, do not hesitate to contact me (email 
 
 ### Actual progress
 The goal of this project is :
-- To gather and regroup all information about CSI frames and ESP32 (Partially done)
-    > Need to validate the informations
-- To send CSI request frames (Partially done)
-   > Able to send any kind of frame, but don't know what CSI request look like
-- To receive CSI frames (Done)
-   > CSI frames are catched and loged (in an unfriendly format for now)
-- To localize the ESP32 with those frames (To do)
-   > Need more progress
-- To receive 802.11n frames and transfer them to wireshark (done)
-   > 802.11n frames are catched, logged, and copnverted to pcap (wireshark friendly)
+- To gather and regroup all information about CSI frames and ESP32 
+    > Partially done : Need to validate the informations
+- To send CSI request frames 
+   > Partially done : Able to send any kind of frame, but don't know what CSI request look like
+- To receive CSI frames 
+   > Done : CSI frames are catched and loged (in an unfriendly format for now)
+- To localize the ESP32 with those frames 
+   > To do : Need more progress
+- To receive 802.11n frames and transfer them to wireshark 
+   > Done : 802.11n frames are catched, logged, and copnverted to pcap (wireshark friendly)
  
 ### How to use 
 
