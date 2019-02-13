@@ -78,7 +78,8 @@ No, it physically can't. IWL5300 has multiple antennas while the ESP32 only has 
 ```
 I don't receive CSI frames
 ```
-Normally this code scan across the 13 avaible channels, is it so ? If yes, maybe your AP don't send any CSI frames
+Normally this code scan across the 13 avaible channels, is it so ? 
+If yes, maybe your AP don't send any CSI frames
 ```
 How can I access X (header, gain control, raw info, ...)
 ```
