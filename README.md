@@ -22,7 +22,8 @@ The goal of this project is :
 
 1) Install Espressif SDK
     ```
-    Follow Espressif installation totorial (Windows, Mac and Linux avaible) : https://docs.espressif.com/projects/esp-idf/en/latest/get-started/index.html
+    Follow Espressif installation totorial (Windows, Mac and Linux avaible) 
+    https://docs.espressif.com/projects/esp-idf/en/latest/get-started/index.html
     ```
 
 2) Get a copy of this project
@@ -37,7 +38,8 @@ The goal of this project is :
 
 4) Adapt the project to your conf
    ```
-   execute "make menuconfig" in the repo, and select your interface in Serial Flasher Config->Default serial port
+   execute "make menuconfig" in the repo, and select your interface 
+   (in Serial Flasher Config->Default serial port)
     ```
 
 5) Build and flash the project
