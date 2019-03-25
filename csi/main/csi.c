@@ -111,9 +111,8 @@ void receive_csi_cb(void *ctx, wifi_csi_info_t *data) {
 	
 	char senddMacChr[LEN_MAC_ADDR] = {0}; // Sender
 	sprintf(senddMacChr, "%02X:%02X:%02X:%02X:%02X:%02X", received.mac[0], received.mac[1], received.mac[2], received.mac[3], received.mac[4], received.mac[5]);
-	printf("Breakpoint\n");
 
-	printf("CSI from adress %s\n", senddMacChr); 
+	printf("Received CSI from adress %s\n", senddMacChr); 
 
 	/*
 	printf("Following packet :\n");
@@ -163,6 +162,7 @@ void promi_cb(void *buff, wifi_promiscuous_pkt_type_t type) {
 
 		
 		if (ppkt->rx_ctrl.sig_mode>0){
+			printf("Received 'ht' packet\n");
 			printf("0000 ");
 			for (int i=0;i<ppkt->rx_ctrl.sig_len;i++){
 				printf("%02x ", my_ptr[i]);
@@ -231,10 +231,7 @@ void app_main()
 	
 	wifi_config_t ap_config;
 	ESP_ERROR_CHECK(esp_wifi_get_config(WIFI_IF_AP, &ap_config));
-	ap_config.ap.ssid_hidden=1; // Never broadcast name
-	ap_config.ap.ssid_len=0; // Auto-find the right len
-	for (int i=0;i<30;i++)
-		ap_config.ap.ssid[i]=(uint8_t)esp_random(); // Random name
+
 	ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_AP, &ap_config)); 
 	ESP_ERROR_CHECK(esp_wifi_set_protocol(WIFI_IF_AP, WIFI_PROTOCOL_11B| WIFI_PROTOCOL_11G|WIFI_PROTOCOL_11N));
 	
@@ -258,19 +255,19 @@ void app_main()
 				default:
 					ht_chan=WIFI_SECOND_CHAN_NONE;
 			}
-			/*
+			
 			for (int chan=1;chan<=10;chan++){
-				//printf("Chan %d bw %d\n", chan, bandwith);
+				printf("Switching channel to %d with bandwith [None/above/bellow]=%d\n", chan, bandwith);
 				ret=esp_wifi_set_channel(chan, ht_chan);
 				ESP_ERROR_CHECK(ret);
 				usleep(1*1000*1000);
 			}
-			*/
 			
+			/*
 			esp_wifi_set_channel(6, ht_chan);
 			ESP_ERROR_CHECK(ret);
 			sleep(5);
-			
+			*/
 		}
 	}
 	printf("fin\n");
