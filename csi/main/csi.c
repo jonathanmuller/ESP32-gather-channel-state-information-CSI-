@@ -162,7 +162,7 @@ void promi_cb(void *buff, wifi_promiscuous_pkt_type_t type) {
 
 		
 		if (ppkt->rx_ctrl.sig_mode>0){
-			printf("Received 'ht' packet\n");
+			printf("Received 'ht' packet from %s to %s\n", senddMacChr, recvdMacChr);
 			printf("0000 ");
 			for (int i=0;i<ppkt->rx_ctrl.sig_len;i++){
 				printf("%02x ", my_ptr[i]);
