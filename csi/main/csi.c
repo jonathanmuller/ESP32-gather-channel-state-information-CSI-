@@ -202,7 +202,7 @@ void app_main()
 	wifi_promiscuous_filter_t filer_promi_ctrl;
 	
 	uint32_t filter_promi_field=WIFI_PROMIS_FILTER_MASK_ALL;
-	uint32_t filter_promi_ctrl_field=(0xFFFFF000); // By setting it to 0xFFFFFFFF we can catch CSI ?! (but error)
+	uint32_t filter_promi_ctrl_field=(0xFF800000); // By setting it to 0xFFFFFFFF we can catch CSI ?! (but error)
 	uint32_t filter_event=WIFI_PROMIS_CTRL_FILTER_MASK_ALL;
    
 	filer_promi.filter_mask = filter_promi_field;
