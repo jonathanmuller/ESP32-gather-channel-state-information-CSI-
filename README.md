@@ -76,6 +76,15 @@ AP sends following frames with the complementary angle so the STA receive the fr
 
 If you have more informations, please let me know so it is (finally ..) possible to continously receive CSI frames with the ESP32 instead of being forced to use the IWL5300
 
+### Working method
+One method which was proved working is to :
+0) Be sure that mode 11b/g/n are activated
+1) Connect the ESP32 to a STA (otherwise you won't be able to achieve >1mb/s, which is too low for 11g/n to activate). This can be an other ESP32
+2) Send RAW null data frame (or probably whetever frame you want) to the AP (use "esp_wifi_80211_tx")
+3) As both are connected over 11n, the frame will be HT and contain CSI informations
+3) AP should respond with an ACK embemed in a HT frame, containing CSI data (in theory)
+
+
 ### FAQ
 Can the ESP32 do the same as the IWL5300 ?
 ```
