@@ -115,37 +115,41 @@ void receive_csi_cb(void *ctx, wifi_csi_info_t *data) {
 	
 	char senddMacChr[LEN_MAC_ADDR] = {0}; // Sender
 	sprintf(senddMacChr, "%02X:%02X:%02X:%02X:%02X:%02X", received.mac[0], received.mac[1], received.mac[2], received.mac[3], received.mac[4], received.mac[5]);
+	if (received.rx_ctrl.sig_mode==1){
+		printf("Received CSI from adress %s\n", senddMacChr); 
 
-	printf("Received CSI from adress %s\n", senddMacChr); 
+		/*
+		printf("Following packet :\n");
+		printf("rate %d\n", received.rx_ctrl.rate);
+		printf("sig_mode %d -> ",received.rx_ctrl.sig_mode);
+		if (received.rx_ctrl.sig_mode==0)
+			printf("non HT(11bg)\n");
+		if (received.rx_ctrl.sig_mode==1)
+			printf("HT(11n)\n");
+		if (received.rx_ctrl.sig_mode==2)
+			printf("UNKNOWN!!!");
+		if (received.rx_ctrl.sig_mode==3)
+			printf("VHT(11ac)\n");
 
-	/*
-	printf("Following packet :\n");
-	printf("rate %d\n", received.rx_ctrl.rate);
-	printf("sig_mode %d -> ",received.rx_ctrl.sig_mode);
-	if (received.rx_ctrl.sig_mode==0)
-		printf("non HT(11bg)\n");
-	if (received.rx_ctrl.sig_mode==1)
-		printf("HT(11n)\n");
-	if (received.rx_ctrl.sig_mode==2)
-		printf("UNKNOWN!!!");
-	if (received.rx_ctrl.sig_mode==3)
-		printf("VHT(11ac)\n");
+		printf("HT20 (0) or HT40 (1) : %d\n",received.rx_ctrl.cwb);
 
-	printf("HT20 (0) or HT40 (1) : %d\n",received.rx_ctrl.cwb);
+		printf("Space time block present : %d\n", received.rx_ctrl.stbc);
+		printf("Secondary channel : 0: none; 1: above; 2: below: %d\n", received.rx_ctrl.secondary_channel);
+		printf("Length %d\n", received.len);
+		printf("Last word is invalid %d\n", received.rx_ctrl.rx_state);
+		*/
+		
+		uint8_t* my_ptr=&(data->buf);
+		
+		printf("0000 ");
+		for(int i=0;i<data->len;i++){
+			printf("%02x ", my_ptr[i]);
+		}
+		printf("\n\n");
 
-	printf("Space time block present : %d\n", received.rx_ctrl.stbc);
-	printf("Secondary channel : 0: none; 1: above; 2: below: %d\n", received.rx_ctrl.secondary_channel);
-	printf("Length %d\n", received.len);
-	printf("Last word is invalid %d\n", received.rx_ctrl.rx_state);
-	*/
-	
-	uint8_t* my_ptr=&(data->buf);
-	
-	printf("0000 ");
-	for(int i=0;i<data->len;i++){
-		printf("%02x ", my_ptr[i]);
+	} else {
+		printf("This is invalid CSI until Espressif fix issue https://github.com/espressif/esp-idf/issues/2909\n", received.rx_ctrl.sig_mode); 
 	}
-	printf("\n\n");
 	
 	
 }
