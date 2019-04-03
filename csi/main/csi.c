@@ -98,6 +98,10 @@ static esp_err_t event_handler(void *ctx, system_event_t *event)
     return ESP_OK;
 }
 
+/*
+ * This function ONLY receive the CSI preamble of frames (if there is any)
+ */
+
 void receive_csi_cb(void *ctx, wifi_csi_info_t *data) {
 							
 /* 
@@ -134,7 +138,7 @@ void receive_csi_cb(void *ctx, wifi_csi_info_t *data) {
 	printf("Length %d\n", received.len);
 	printf("Last word is invalid %d\n", received.rx_ctrl.rx_state);
 	*/
-	/*
+	
 	uint8_t* my_ptr=&(data->buf);
 	
 	printf("0000 ");
@@ -142,9 +146,14 @@ void receive_csi_cb(void *ctx, wifi_csi_info_t *data) {
 		printf("%02x ", my_ptr[i]);
 	}
 	printf("\n\n");
-	*/
+	
 	
 }
+
+/*
+ * This function receive all frames, would they contain CSI preamble or not.
+ * It gets the content of the frame, not the preamble.
+ */
 
 void promi_cb(void *buff, wifi_promiscuous_pkt_type_t type) {
 	if (can_print){
@@ -158,9 +167,8 @@ void promi_cb(void *buff, wifi_promiscuous_pkt_type_t type) {
 		char recvdMacChr[LEN_MAC_ADDR] = {0}; // Receiver
 		sprintf(recvdMacChr, "%02X:%02X:%02X:%02X:%02X:%02X", hdr->addr1[0], hdr->addr1[1], hdr->addr1[2], hdr->addr1[3], hdr->addr1[4], hdr->addr1[5]);
 		sprintf(senddMacChr, "%02X:%02X:%02X:%02X:%02X:%02X", hdr->addr2[0], hdr->addr2[1], hdr->addr2[2], hdr->addr2[3], hdr->addr2[4], hdr->addr2[5]);
-
-
 		
+		/*
 		if (ppkt->rx_ctrl.sig_mode>0){
 			printf("Received 'ht' packet from %s to %s\n", senddMacChr, recvdMacChr);
 			printf("0000 ");
@@ -169,6 +177,7 @@ void promi_cb(void *buff, wifi_promiscuous_pkt_type_t type) {
 			}
 			printf("\n\n");
 		}
+		*/
 	}
 	can_print=1;
 	
