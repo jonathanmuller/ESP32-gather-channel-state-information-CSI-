@@ -67,6 +67,10 @@ CSI frames are stored in "output_of_minicom.txt" (they will be stored in a more 
     
     
 ### Current understanding
+- CSI is a preamble to frames. 
+- It is used to determin the "noise" between the STA and the AP (which is assumed to be the same as the AP to the STA)
+- It is a specificity of the 802.11n mode, which is enabled only under certain conditions.
+Exemple :
 STA send a frame to the AP at speed > 6mb/s [which is OFDM]
 AP respond with a frame at speed > 6 mb/s [which is OFDM] -> The ESP32 extract the CSI header
 This means that to generate CSI preamble with an ESP32 you need to be connected to the AP, else you can't send at >6mb/s ans there will be no CSI preamble. You can't only use "esp_wifi_80211_tx" without being connected (because it will only send at 1 mb/s)
@@ -81,6 +85,9 @@ One method which was proved working is to :
 3) As both are connected over 11n, the frame will be HT and contain CSI informations
 3) AP should respond with an ACK embemed in a HT frame, containing CSI data (in theory)
 
+### BUG
+There is currently a bug in Espressif SDK where CSI callback is triggered instead of promiscuous callback.
+See issue https://github.com/espressif/esp-idf/issues/3165
 
 ### FAQ
 Can the ESP32 do the same as the IWL5300 ?
@@ -91,6 +98,11 @@ I don't receive CSI frames
 ```
 Normally this code scan across the 13 avaible channels, is it so ? 
 If yes, maybe your AP don't send any CSI frames
+```
+I dont understand what is in the CSI frame
+```
+Please see
+https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/wifi.html?highlight=channel%20state%20information#wi-fi-channel-state-information
 ```
 How can I access X (header, gain control, raw info, ...)
 ```
