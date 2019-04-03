@@ -95,6 +95,11 @@ I don't receive CSI frames
 Normally this code scan across the 13 avaible channels, is it so ? 
 If yes, maybe your AP don't send any CSI frames
 ```
+I dont understand what is in the CSI frame
+```
+Please see
+https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/wifi.html?highlight=channel%20state%20information#wi-fi-channel-state-information
+```
 How can I access X (header, gain control, raw info, ...)
 ```
 It is very specific, you can suggest me to add this information by "issue" or by contacting me via email 
