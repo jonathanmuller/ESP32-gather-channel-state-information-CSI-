@@ -67,12 +67,9 @@ CSI frames are stored in "output_of_minicom.txt" (they will be stored in a more 
     
     
 ### Current understanding
-The current understanding of CSI frames mecanism is :
-STA sends a TRQ request to the AP
-Ap respond with a sounding frame (CSI), which is a "blank" frame
-STA receive the "blank" frame, which was modified during its flight
-STA sends the "steering matrix" (which is the "angle" the "blank" frame got during its flight)
-AP sends following frames with the complementary angle so the STA receive the frames as best as possible
+STA send a frame to the AP at speed > 6mb/s [which is OFDM]
+AP respond with a frame at speed > 6 mb/s [which is OFDM] -> The ESP32 extract the CSI header
+This means that to generate CSI preamble with an ESP32 you need to be connected to the AP, else you can't send at >6mb/s ans there will be no CSI preamble. You can't only use "esp_wifi_80211_tx" without being connected (because it will only send at 1 mb/s)
 
 If you have more informations, please let me know so it is (finally ..) possible to continously receive CSI frames with the ESP32 instead of being forced to use the IWL5300
 
