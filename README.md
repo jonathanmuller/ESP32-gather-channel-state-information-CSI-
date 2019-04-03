@@ -67,6 +67,10 @@ CSI frames are stored in "output_of_minicom.txt" (they will be stored in a more 
     
     
 ### Current understanding
+- CSI is a preamble to frames. 
+- It is used to determin the "noise" between the STA and the AP (which is assumed to be the same as the AP to the STA)
+- It is a specificity of the 802.11n mode, which is enabled only under certain conditions.
+Exemple :
 STA send a frame to the AP at speed > 6mb/s [which is OFDM]
 AP respond with a frame at speed > 6 mb/s [which is OFDM] -> The ESP32 extract the CSI header
 This means that to generate CSI preamble with an ESP32 you need to be connected to the AP, else you can't send at >6mb/s ans there will be no CSI preamble. You can't only use "esp_wifi_80211_tx" without being connected (because it will only send at 1 mb/s)
