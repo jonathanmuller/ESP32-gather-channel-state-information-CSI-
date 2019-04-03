@@ -87,7 +87,8 @@ One method which was proved working is to :
 
 ### BUG
 There is currently a bug in Espressif SDK where CSI callback is triggered instead of promiscuous callback.
-See issue https://github.com/espressif/esp-idf/issues/3165
+See issue https://github.com/espressif/esp-idf/issues/2909
+This means for now only CSI received between the ESP32 and the AP it is connected to are safe (hopefully) under the condition that monitor mode is disabled
 
 ### FAQ
 Can the ESP32 do the same as the IWL5300 ?
