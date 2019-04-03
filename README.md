@@ -8,17 +8,16 @@ This project is under active developement, do not hesitate to contact me (email 
 
 ### Actual progress
 The goal of this project is :
-- To send CSI request frames 
-   * Partially done : Able to send any kind of frame, but don't know what CSI request look like
-   * You can help by finding the structure of a CSI request frame (see in folder "request_csi" for more details)
+- To send 802.11n frames (So AP respond with CSI frames) 
+   * Partially done : Able to send any kind of frame, but only at 1mb/s. OFDM kick in at 6mb/s, so only when the ESP32 is connected to the AP. The goal is to send a 802.11n RTS/NULL data frame without being connected.
+   * You can help by finding a way to use esp_wifi_80211_tx at 6 mb/s (11n) without being connected
 - To receive CSI frames 
    * Done : CSI frames are catched and loged (in an unfriendly format for now)
-   * You can help by understanding why some frames are dropped by filter_promi_ctrl_field (see source code)
+   * You can help by understanding why some frames are dropped by filter_promi_ctrl_field (see "WIFI_PROMIS_CTRL_FILTER_MASK_ALL" in code)
 - To localize the ESP32 with those frames 
    * To do : Need more progress
 - To receive 802.11n frames and transfer them to wireshark 
    * Done : 802.11n frames are catched, logged, and copnverted to pcap (wireshark friendly)
-   * You can help understand the structure of CSI frames gathered (see in folder "read_frames" for details)
 - To gather and regroup all information about CSI frames and ESP32 
    * Partially done : Need to validate the informations
    * You can help by verifying the informations
@@ -75,12 +74,12 @@ STA send a frame to the AP at speed > 6mb/s [which is OFDM]
 AP respond with a frame at speed > 6 mb/s [which is OFDM] -> The ESP32 extract the CSI header
 This means that to generate CSI preamble with an ESP32 you need to be connected to the AP, else you can't send at >6mb/s ans there will be no CSI preamble. You can't only use "esp_wifi_80211_tx" without being connected (because it will only send at 1 mb/s)
 
-If you have more informations, please let me know so it is (finally ..) possible to continously receive CSI frames with the ESP32 instead of being forced to use the IWL5300
+If you have more informations, please let me know so it is (finally ..) possible to continously receive CSI frames from any AP without being connected to it
 
 ### Working method
 One method which was proved working is to :
 0) Be sure that mode 11b/g/n are activated
-1) Connect the ESP32 to a STA (otherwise you won't be able to achieve >1mb/s, which is too low for 11g/n to activate). This can be an other ESP32
+1) Connect the ESP32 to a STA (otherwise you won't be able to achieve >1mb/s, which is too low for 11n to activate). This can be an other ESP32
 2) Send RAW null data frame (or probably whetever frame you want) to the AP (use "esp_wifi_80211_tx")
 3) As both are connected over 11n, the frame will be HT and contain CSI informations
 3) AP should respond with an ACK embemed in a HT frame, containing CSI data (in theory)
