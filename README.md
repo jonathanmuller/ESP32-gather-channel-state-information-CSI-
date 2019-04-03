@@ -81,6 +81,9 @@ One method which was proved working is to :
 3) As both are connected over 11n, the frame will be HT and contain CSI informations
 3) AP should respond with an ACK embemed in a HT frame, containing CSI data (in theory)
 
+### BUG
+There is currently a bug in Espressif SDK where CSI callback is triggered instead of promiscuous callback.
+See issue https://github.com/espressif/esp-idf/issues/3165
 
 ### FAQ
 Can the ESP32 do the same as the IWL5300 ?
