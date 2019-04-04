@@ -110,6 +110,10 @@ How can I access X (header, gain control, raw info, ...)
 ```
 It is very specific, you can suggest me to add this information by "issue" or by contacting me via email 
 ```
+### Results
+![Alt text](csi/plot_csi_data/amplitude.png?raw=true "Title")
+![Alt text](csi/plot_csi_data/phase.png?raw=true "Title")
+
 
 ### Extra
 NB : I have a modified/hacked WiFi library which allow to send any frame but I will NOT upload it. Nevertheless I can explain you approximately how to get the same result
