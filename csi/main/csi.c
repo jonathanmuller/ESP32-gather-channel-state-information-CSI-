@@ -148,7 +148,7 @@ void receive_csi_cb(void *ctx, wifi_csi_info_t *data) {
 		printf("\n\n");
 
 	} else {
-		printf("This is invalid CSI until Espressif fix issue https://github.com/espressif/esp-idf/issues/2909\n", received.rx_ctrl.sig_mode); 
+		printf("This is invalid CSI until Espressif fix issue https://github.com/espressif/esp-idf/issues/2909\n"); 
 	}
 	
 	
