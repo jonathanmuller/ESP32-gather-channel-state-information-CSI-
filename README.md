@@ -88,7 +88,7 @@ One method which was proved working is to :
 There is currently a bug in Espressif SDK where CSI callback is triggered instead of promiscuous callback.
 See issue https://github.com/espressif/esp-idf/issues/2909
 
-This means for now I have to apply a filter on rx_ctrl.sig_mode so only valid CSI frames are shown (thanks @karthik).
+This means for now I have to apply a filter on rx_ctrl.sig_mode so only valid CSI frames are shown (thanks @kraoa).
 
 If your code is dater before 03.04.2019 your results may be affected.
 ### FAQ
