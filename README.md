@@ -10,7 +10,7 @@ This project is under active developement, do not hesitate to contact me (email 
 The goal of this project is :
 - To send 802.11n frames (So AP respond with CSI frames) 
    * Partially done : Able to send any kind of frame, but only at 1mb/s. OFDM kick in at 6mb/s, so only when the ESP32 is connected to the AP. The goal is to send a 802.11n RTS/NULL data frame without being connected.
-   * You can help by finding a way to use esp_wifi_80211_tx at 6 mb/s (11n) without being connected
+   * You can help by finding a way to use esp_wifi_80211_tx at the same time as the esp_wifi_internal_set_fix_rate private function
 - To receive CSI frames 
    * Done : CSI frames are catched and loged (in an unfriendly format for now)
    * You can help by understanding why some frames are dropped by filter_promi_ctrl_field (see "WIFI_PROMIS_CTRL_FILTER_MASK_ALL" in code)
