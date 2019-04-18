@@ -1,0 +1,58 @@
+In archive /home/jonathan/Desktop/esp32/csi_git/generate_csi/build/main/libmain.a:
+
+scan.o:     file format elf32-xtensa-le
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .literal.promi_cb 00000034  00000000  00000000  00000034  2**2
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  1 .literal.event_handler 00000054  00000000  00000000  00000068  2**2
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  2 .literal.init 000000d4  00000000  00000000  000000bc  2**2
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  3 .literal.app_main 00000010  00000000  00000000  00000190  2**2
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  4 .text         00000000  00000000  00000000  000001a0  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  5 .data         00000000  00000000  00000000  000001a0  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  6 .bss          00000000  00000000  00000000  000001a0  2**0
+                  ALLOC
+  7 .rodata.str1.4 00000351  00000000  00000000  000001a0  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  8 .text.promi_cb 000000ba  00000000  00000000  000004f4  2**2
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  9 .text.event_handler 000000bd  00000000  00000000  000005b0  2**2
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+ 10 .text.init    000001fe  00000000  00000000  00000670  2**2
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+ 11 .text.app_main 0000001d  00000000  00000000  00000870  2**2
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+ 12 .rodata.__func__$7690 0000000e  00000000  00000000  00000890  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+ 13 .rodata.__func__$7720 00000005  00000000  00000000  000008a0  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+ 14 .debug_frame  00000070  00000000  00000000  000008a8  2**2
+                  CONTENTS, RELOC, READONLY, DEBUGGING
+ 15 .debug_info   00002195  00000000  00000000  00000918  2**0
+                  CONTENTS, RELOC, READONLY, DEBUGGING
+ 16 .debug_abbrev 0000030c  00000000  00000000  00002aad  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 17 .debug_loc    000001f1  00000000  00000000  00002db9  2**0
+                  CONTENTS, RELOC, READONLY, DEBUGGING
+ 18 .debug_aranges 00000038  00000000  00000000  00002faa  2**0
+                  CONTENTS, RELOC, READONLY, DEBUGGING
+ 19 .debug_ranges 00000028  00000000  00000000  00002fe2  2**0
+                  CONTENTS, RELOC, READONLY, DEBUGGING
+ 20 .debug_line   0000067a  00000000  00000000  0000300a  2**0
+                  CONTENTS, RELOC, READONLY, DEBUGGING
+ 21 .debug_str    00001847  00000000  00000000  00003684  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 22 .comment      0000003b  00000000  00000000  00004ecb  2**0
+                  CONTENTS, READONLY
+ 23 .xtensa.info  00000038  00000000  00000000  00004f06  2**0
+                  CONTENTS, READONLY
+ 24 .xt.lit       00000020  00000000  00000000  00004f3e  2**0
+                  CONTENTS, RELOC, READONLY
+ 25 .xt.prop      0000012c  00000000  00000000  00004f5e  2**0
+                  CONTENTS, RELOC, READONLY
