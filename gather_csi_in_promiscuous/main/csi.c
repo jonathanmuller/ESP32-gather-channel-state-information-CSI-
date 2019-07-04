@@ -145,7 +145,7 @@ void receive_csi_cb(void *ctx, wifi_csi_info_t *data) {
 		printf("Last word is invalid %d\n", received.rx_ctrl.rx_state);
 		*/
 		printf("<CSI><address>%s</address><len>%d</len>", senddMacChr, data->len);
-		int8_t* my_ptr=&(data->buf);
+		int8_t* my_ptr=data->buf;
 		for(int i=0;i<data->len;i++){
 			printf("%d ", my_ptr[i]);
 		}
