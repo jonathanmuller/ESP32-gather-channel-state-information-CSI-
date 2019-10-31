@@ -3,7 +3,7 @@
 This project allows to extract WiFi CSI (Channel State Information) frames from compatible AP by using an ESP32 chip. Those CSI frames can be processed in order to precisely localize it using phase aggregation or fingerprinting.
 
 ### A priori
-This project is under active developement, do not hesitate to contact me (email on my bio/issues) if you have question, suggestions, informations or spotted errors
+This project is under active developement, do not hesitate to contact me (email on my bio/issues) if you have question, suggestions, informations or spotted errors, I usually respond within few days.
 
 
 ### Actual progress
