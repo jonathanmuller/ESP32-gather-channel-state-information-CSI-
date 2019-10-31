@@ -1,5 +1,5 @@
-This is currently NOT fully working
+Big thanks to Noel Hiller to have shared this code
+This is currently WORKING but NOT TESTED
 
-The goal is to create an AP and a STA, both using an ESP32 ( ESP32 AP <-> ESP32 STA), in order to have a stable connection with CSI already filtered (no promiscuous mode required)
-You can help by sharing this code with me if you already have it. 
-Else if you can wait a few week it should be there (drop me a mail if not)
+Upload the client on one board and the server on another board. This sends UDP packets from one board to the other and triggers CSI callback.
+You probably want to customice the MAC filters so you don't receive frames from surrounding AP.
