@@ -9,7 +9,7 @@ This project is under active developement, do not hesitate to contact me (email 
 ### Actual progress
 The goal of this project is :
 - To send 802.11n frames (So AP respond with CSI frames) 
-   * Partially done : Able to send any kind of frame, but only at 1mb/s. OFDM kick in at 6mb/s, so only when the ESP32 is connected to the AP. The goal is to send a 802.11n RTS/NULL data frame without being connected.
+   * Partially done : CSI frames consistently works between 2 ESP32 boards. It should also work with any commercial AP. The only part left is to receive CSI without being connected.
    * You can help by finding a way to use esp_wifi_80211_tx at the same time as the esp_wifi_internal_set_fix_rate private function
 - To receive CSI frames 
    * Done : CSI frames are catched and loged (in an unfriendly format for now)
@@ -17,52 +17,19 @@ The goal of this project is :
 - To localize the ESP32 with those frames 
    * To do : Need more progress
 - To receive 802.11n frames and transfer them to wireshark 
-   * Done : 802.11n frames are catched, logged, and copnverted to pcap (wireshark friendly)
+   * Done : 802.11n frames are catched, logged, and converted to pcap (wireshark friendly)
 - To gather and regroup all information about CSI frames and ESP32 
    * Partially done : Need to validate the informations
    * You can help by verifying the informations
  
 ### How to use 
 
-1) Install Espressif SDK
-    ```
-    Follow Espressif installation totorial (Windows, Mac and Linux avaible) 
-    https://docs.espressif.com/projects/esp-idf/en/latest/get-started/index.html
-    ```
+First figure how to upload a code on your ESP32 board (it should be easy, many tutorials are available, including a detailed one on Espressif github : https://docs.espressif.com/projects/esp-idf/en/stable/get-started/), then you can use one of the folliwng folders :
 
-2) Get a copy of this project
-    ```
-    git clone https://github.com/jonathanmuller/ESP32-gather-channel-state-information-CSI-.git
-    ```
-
-3) Source espressif variables
-    ```
-    export PATH="$HOME/esp/xtensa-esp32-elf/bin:$PATH" if you have default conf.
-   ```
-
-4) Adapt the project to your conf
-   ```
-   execute "make menuconfig" in the repo, and select your interface 
-   (in Serial Flasher Config->Default serial port)
-    ```
-
-5) Build and flash the project
-    ```
-    make flash monitor (you should now see the raw dump of the frames in hexa)
-    ```
-
-6) Execute script to get frames (csi/read_frames)
-    ```
-    ./my_read.sh
-    ```
-    (in an other terminal and in the script folder execute) 
-    ```
-    rm output_of_minicom.txt ;minicom -D /dev/ttyUSB3 -C output_of_minicom.txt
-    ```
-    
-The frames are stored in "tot.pcap"
-CSI frames are stored in "output_of_minicom.txt" (they will be stored in a more friendly format soon)
-    
+- "create_STA_and_AP" -> Using 2 ESP32 boards connected over WiFi. One send an UDP packet, which triggers the CSI callbal on the other.
+- "gather_csi_in_promiscuous" -> Loop across the 13 WiFi channels and print any CSI frame
+- "read_non_csi_frames" -> Print NON-CSI frames in HEX (so you can dump them and see them on WireShark for example)
+- "request_csi_frames" -> (Missing esp_wifi_80211_tx call) Send a OFDM/802.11n to an AP which should answer with a CSI frame
     
     
 ### Current understanding
@@ -72,17 +39,9 @@ CSI frames are stored in "output_of_minicom.txt" (they will be stored in a more 
 Exemple :
 STA send a frame to the AP at speed > 6mb/s [which is OFDM]
 AP respond with a frame at speed > 6 mb/s [which is OFDM] -> The ESP32 extract the CSI header
-This means that to generate CSI preamble with an ESP32 you need to be connected to the AP, else you can't send at >6mb/s ans there will be no CSI preamble. You can't only use "esp_wifi_80211_tx" without being connected (because it will only send at 1 mb/s)
+This means that to generate CSI preamble with an ESP32 you need to be connected to the AP, else you can't send at >6mb/s ans there will be no CSI preamble. You can't only use "esp_wifi_80211_tx" without being connected (because it will only send at 1 mb/s). So you also need to use the hidden "esp_wifi_internal_set_rate" function.
 
 If you have more informations, please let me know so it is (finally ..) possible to continously receive CSI frames from any AP without being connected to it
-
-### Working method
-One method which was proved working is to :
-0) Be sure that mode 11b/g/n are activated
-1) Connect the ESP32 to a STA (otherwise you won't be able to achieve >1mb/s, which is too low for 11n to activate). This can be an other ESP32
-2) Send RAW null data frame (or probably whetever frame you want) to the AP (use "esp_wifi_80211_tx")
-3) As both are connected over 11n, the frame will be HT and contain CSI informations
-3) AP should respond with an ACK embemed in a HT frame, containing CSI data (in theory)
 
 ### BUG
 There is currently a bug in Espressif SDK where CSI callback is triggered instead of promiscuous callback.
