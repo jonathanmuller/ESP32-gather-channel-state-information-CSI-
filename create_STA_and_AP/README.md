@@ -1,11 +1,11 @@
 ### Info 
 
 Big thanks to Noel Hiller to have shared this code
-This is currently WORKING but NOT TESTED
+This is currently WORKING and tested (still some improvements to be made)
 
 ### How to use 
 
-Upload the client on one board and the server on another board. 
+Upload the client on one board and the server on another board. Monitor the client and wait for CSI.
 
 ### Goal 
 
