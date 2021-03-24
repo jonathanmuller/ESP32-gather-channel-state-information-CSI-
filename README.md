@@ -9,7 +9,7 @@ This project is under active developement, do not hesitate to contact me (email 
 ### Actual progress
 The goal of this project is :
 - To send 802.11n frames (So AP respond with CSI frames) 
-   * Partially done : CSI frames consistently works between 2 ESP32 boards. It should also work with any commercial AP. The only part left is to receive CSI without being connected.
+   * Partially done : CSI frames consistently works between 2 ESP32 boards. It should also work with any commercial AP. The only part left is to send CSI without being connected
    * You can help by finding a way to use esp_wifi_80211_tx at the same time as the esp_wifi_internal_set_fix_rate private function
 - To receive CSI frames 
    * Done : CSI frames are catched and loged (in an unfriendly format for now)
