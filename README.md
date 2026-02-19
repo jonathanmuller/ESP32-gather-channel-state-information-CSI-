@@ -1,5 +1,5 @@
 # 🚨 This project is no longer maintained
-> **Replaced by the more advanced [ESP-PPB](https://github.com/jonathanmuller/esp-ppb/).**
+> **It has been replaced by the more advanced [ESP-PPB](https://github.com/jonathanmuller/esp-ppb/).**
 
 # Gather CSI (Channel State Information) frames with the use of an ESP32 WiFi chip
 
