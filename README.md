@@ -1,3 +1,5 @@
+<span style="color:red">This project is no longer maintained and has been replaced by the more advanced <a href="https://github.com/jonathanmuller/esp-ppb/">ESP-PPB</a>.</span>
+
 # Gather CSI (Channel State Information) frames with the use of an ESP32 WiFi chip
 
 This project allows to extract WiFi CSI (Channel State Information) frames from compatible AP by using an ESP32 chip. Those CSI frames can be processed in order to precisely localize it using phase aggregation or fingerprinting.
